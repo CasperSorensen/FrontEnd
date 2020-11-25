@@ -9,6 +9,7 @@ namespace FrontEndApp.Unittests
     public void Test1()
     {
       //test of feature branch
+      // test of automated login 
     }
   }
 }
