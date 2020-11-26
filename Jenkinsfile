@@ -6,11 +6,7 @@ pipeline {
         dockerImage = '' 
     } 
     agent { 
-        dockerfile {
-            filename 'Dockerfile'
-            reuseNode true
-            args '--entrypoint=\'\''
-        }
+        dockerfile true
     }
     stages {
         stage('Test') {
