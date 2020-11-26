@@ -3,6 +3,7 @@ pipeline {
         HOME = '/tmp'
         registry = "knoxie2/front_end_app"
         registryCredential = 'dockerhub'
+        dockerImage = '' 
     } 
     agent { 
         dockerfile {
@@ -22,7 +23,7 @@ pipeline {
         stage('Building image') {
             steps {
               script {
-                docker.build registry + ":$BUILD_NUMBER"
+                dockerImage = docker.build registry + ":$BUILD_NUMBER"
               }
             }
         }
@@ -30,7 +31,7 @@ pipeline {
             steps{    
               script {
                 docker.withRegistry( '', registryCredential ) {
-                dockerImage.push()
+                  dockerImage.push()
                 }
               }
             }
