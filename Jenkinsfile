@@ -6,7 +6,11 @@ pipeline {
         dockerImage = '' 
     } 
     agent { 
-        dockerfile true
+         dockerfile {
+            filename 'Dockerfile'
+            reuseNode true
+            args '--entrypoint=\'\''
+        }
     }
     stages {
         stage('Test') {
@@ -19,8 +23,8 @@ pipeline {
         stage('Building image') {
             steps {
               script {
-                dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                // sh "docker tag $BUILD_NUMBER $registry/myImage"
+                //dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                sh "docker tag $BUILD_NUMBER $registry/myImage"
               }
             }
         }
