@@ -24,6 +24,7 @@ pipeline {
                 sh 'cd src/FrontEndApp.Unittests'
                 sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
             }
+          }
         }
         stage('Deploy Image') {
             steps{    
