@@ -6,13 +6,13 @@ pipeline {
     } 
     agent any
     stages {
-        stage('Test') {
-            steps {
-                sh 'dotnet --version'
-                sh 'cd src/FrontEndApp.Unittests'
-                sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         sh 'dotnet --version'
+        //         sh 'cd src/FrontEndApp.Unittests'
+        //         sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
+        //     }
+        // }
         stage('Building image') {
             steps {
               script {
