@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Test') {
            agent {
-                docker { image $registry:$BUILD_NUMBER }
+                docker { image $dockerImage }
             }
             steps {
                 steps {
