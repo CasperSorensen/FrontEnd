@@ -1,17 +1,10 @@
 pipeline {
     environment {
-        HOME = '/tmp'
         registry = "knoxie2/front_end_app"
         registryCredential = 'knoxie2'
         dockerImage = '' 
     } 
-    agent { 
-         dockerfile {
-            filename 'Dockerfile'
-            reuseNode true
-            args '--entrypoint=\'\''
-        }
-    }
+    agent any
     stages {
         stage('Test') {
             steps {
@@ -23,8 +16,7 @@ pipeline {
         stage('Building image') {
             steps {
               script {
-                //dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                sh "docker tag $BUILD_NUMBER $registry/myImage"
+                dockerImage = docker.build registry + ":$BUILD_NUMBER"
               }
             }
         }
