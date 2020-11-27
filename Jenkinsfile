@@ -14,18 +14,20 @@ pipeline {
               }
             }
         }
+
         stage('Test') {
           //  agent {
           //       docker { image 'knoxie2/front_end_app' + ":$BUILD_NUMBER" }
           //   }
+          steps {
             docker.image('knoxie2/front_end_app' + ":$BUILD_NUMBER").inside("""--entrypoint=''""") {
-              steps {
                 sh 'dotnet --version'
                 sh 'cd src/FrontEndApp.Unittests'
                 sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
               }
-            }
+          }
         }
+
         stage('Deploy Image') {
             steps{    
               script {
@@ -35,6 +37,7 @@ pipeline {
               }
             }
         }
+        
         stage('Remove Unused docker image') {
             steps{
               sh "docker rmi $registry:$BUILD_NUMBER"
