@@ -15,9 +15,9 @@ pipeline {
             }
         }
         stage('Test') {
-           agent {
-                docker { image 'knoxie2/front_end_app' + ":$BUILD_NUMBER" }
-            }
+          //  agent {
+          //       docker { image 'knoxie2/front_end_app' + ":$BUILD_NUMBER" }
+          //   }
             docker.image('knoxie2/front_end_app' + ":$BUILD_NUMBER").inside("""--entrypoint=''""") {
               steps {
                 sh 'dotnet --version'
@@ -25,11 +25,6 @@ pipeline {
                 sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
               }
             }
-            // steps {
-            //     sh 'dotnet --version'
-            //     sh 'cd src/FrontEndApp.Unittests'
-            //     sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
-            // }
         }
         stage('Deploy Image') {
             steps{    
