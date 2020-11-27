@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Test') {
            agent {
-                docker { image 'knoxie2/front_end_app:$BUILD_NUMBER' }
+                docker { image $registry:$BUILD_NUMBER }
             }
             steps {
                 steps {
