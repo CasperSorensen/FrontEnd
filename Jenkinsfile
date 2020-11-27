@@ -42,6 +42,13 @@ pipeline {
               sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
+
+         stage('Ansible test') {
+            steps{
+              sh "ansible -m ping all"
+            }
+        }
+        
     }
     // post {
     //     always {
