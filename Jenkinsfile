@@ -6,18 +6,23 @@ pipeline {
     } 
     agent any
     stages {
-        // stage('Test') {
-        //     steps {
-        //         sh 'dotnet --version'
-        //         sh 'cd src/FrontEndApp.Unittests'
-        //         sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
-        //     }
-        // }
+        
         stage('Building image') {
             steps {
               script {
                 dockerImage = docker.build registry + ":$BUILD_NUMBER"
               }
+            }
+        }
+        stage('Test') {
+           agent {
+                docker { image 'knoxie2/front_end_app:$BUILD_NUMBER' }
+            }
+            steps {
+                steps {
+                sh 'dotnet --version'
+                sh 'cd src/FrontEndApp.Unittests'
+                sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
             }
         }
         stage('Deploy Image') {
