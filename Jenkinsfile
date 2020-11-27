@@ -19,9 +19,11 @@ pipeline {
                 docker { image 'knoxie2/front_end_app' + ":$BUILD_NUMBER" }
             }
             steps {
+                sh "docker run $registry:$BUILD_NUMBER"
                 sh 'dotnet --version'
                 sh 'cd src/FrontEndApp.Unittests'
                 sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
+                sh "docker stop $registry:$BUILD_NUMBER"
             }
         }
         stage('Deploy Image') {
