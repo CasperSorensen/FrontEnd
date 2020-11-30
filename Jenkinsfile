@@ -5,6 +5,7 @@ pipeline {
         registryCredential = 'knoxie2'
         dockerImage = ''
         HOME = '/tmp'
+
     } 
     agent any
     stages {
@@ -84,7 +85,7 @@ pipeline {
             }
             steps{
               //sh "ansible-playbook ansible-playbooks/pull_webshop_front_end_testing.yml"
-              ansiblePlaybook(credentialsId: 'private_key', playbook: 'pull_webshop_front_end_testing.yml',inventory: "${HOSTS}")
+              ansiblePlaybook(credentialsId: 'root', playbook: 'pull_webshop_front_end_testing.yml',inventory: "${HOSTS}")
             }
         }
          stage('Deploy to Production environment') {
