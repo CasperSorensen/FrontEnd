@@ -37,7 +37,7 @@ pipeline {
             }
             steps {
               script {
-                docker.image("knoxie2/front_end_app_testing" + ":$version").inside("""--entrypoint=''""") {
+                docker.image("knoxie2/front_end_app_testing").inside("""--entrypoint=''""") {
                   sh 'dotnet --version'
                   sh 'cd src/FrontEndApp.Unittests'
                   sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
