@@ -19,7 +19,6 @@ pipeline {
               }
             }
         }
-<<<<<<< HEAD
         
         stage('Building image for Production') {
           when {
@@ -32,9 +31,6 @@ pipeline {
             }
         }
         
-=======
-
->>>>>>> development
         stage('Running Unit Tests') {
           when {
               branch 'development'
@@ -51,15 +47,10 @@ pipeline {
         }
 
         stage('Push Image to Ducker Hub') {
-<<<<<<< HEAD
            when {
               not {
                 branch 'main'
               }
-=======
-            when {
-              branch 'development'
->>>>>>> development
             }
             steps{    
               script {
@@ -70,8 +61,7 @@ pipeline {
             }
         }
 
-<<<<<<< HEAD
-        stage('Remove Unused testing docker image') {
+        stage('Remove Unused Testing docker image') {
            when {
               branch 'development'
             }
@@ -80,16 +70,10 @@ pipeline {
             }
         }
 
-        stage('Remove Unused production docker image') {
+        stage('Remove Unused Production docker image') {
            when {
               branch 'staging'
             }
-=======
-        stage('Remove Unused docker image') {
-           when {
-              branch 'development'
-            }
->>>>>>> development
             steps{
               sh "docker rmi $productionregistry:$version"
             }
@@ -97,20 +81,12 @@ pipeline {
 
         stage('Deploy to Staging environment') {
           when {
-<<<<<<< HEAD
               branch 'staging'
-=======
-              branch 'development'
->>>>>>> development
             }
             steps{
               sh "ansible -m ping all"
             }
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> development
          stage('Deploy to Production environment') {
           when {
               branch 'main'
@@ -120,9 +96,4 @@ pipeline {
             }
         }
     }
-    // post {
-    //     always {
-    //         step([$class: 'MSTestPublisher', testResultsFile:"**/unit_tests.xml", failOnError: true, keepLongStdio: true])
-    //     }
-    // }
 }
