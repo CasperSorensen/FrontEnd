@@ -7,19 +7,19 @@ pipeline {
     } 
     agent any
     stages {
-        when {
-            branch 'development'
-        }
         stage('Building image') {
             steps {
               script {
                 dockerImage = docker.build registry + ":$BUILD_NUMBER"
               }
             }
-            
+
         }
 
         stage('Test') {
+          when {
+              branch 'development'
+            }
             steps {
               script {
                 docker.image('knoxie2/front_end_app' + ":$BUILD_NUMBER").inside("""--entrypoint=''""") {
@@ -48,6 +48,9 @@ pipeline {
         }
 
         stage('Ansible test') {
+          when {
+              branch 'main'
+            }
             steps{
               sh "ansible -m ping all"
             }
