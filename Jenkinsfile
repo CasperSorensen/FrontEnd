@@ -37,7 +37,7 @@ pipeline {
             }
             steps {
               script {
-                docker.image(dockerImage).inside("""--entrypoint=''""") {
+                docker.image($dockerImage).inside("""--entrypoint=''""") {
                   sh 'dotnet --version'
                   sh 'cd src/FrontEndApp.Unittests'
                   sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
