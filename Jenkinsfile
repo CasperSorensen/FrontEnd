@@ -83,7 +83,7 @@ pipeline {
               branch 'staging'
             }
             steps{
-              sh "ansible -m ping all"
+              sh "ansible-playbook ansible-playbooks/pull_webshop_front_end_testing.yml -l production"
             }
         }
          stage('Deploy to Production environment') {
