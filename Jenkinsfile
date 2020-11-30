@@ -74,7 +74,7 @@ pipeline {
               branch 'staging'
             }
             steps{
-              sh "docker rmi $productionregistry:$version"
+              sh "docker rmi $productionregistry:latest"
             }
         }
 
