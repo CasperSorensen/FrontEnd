@@ -1,14 +1,4 @@
-- name: Pull Webshop Front End
-  hosts: production
-  vars:
-    container_port: 5001
-
+- hosts:
+    - production
   tasks:
-    - name: Start Front End Container
-      docker_container:
-        name: front end
-        image: knoxie2/front_end_app_testing:latest
-        ports: 5001:5001
-
-    - name: Check if container is running
-      shell: docker ps -a
+    - action: ping
