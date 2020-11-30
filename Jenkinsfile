@@ -83,7 +83,8 @@ pipeline {
               branch 'staging'
             }
             steps{
-              sh "ansible-playbook ansible-playbooks/pull_webshop_front_end_testing.yml -l production"
+              sh "cd ansible-playbooks"
+              sh "ansible-playbook pull_webshop_front_end_testing.yml"
             }
         }
          stage('Deploy to Production environment') {
