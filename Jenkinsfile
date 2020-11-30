@@ -13,10 +13,9 @@ pipeline {
                 dockerImage = docker.build registry + ":$BUILD_NUMBER"
               }
             }
-
         }
 
-        stage('Test') {
+        stage('Running Unit Tests') {
           when {
               branch 'development'
             }
@@ -32,6 +31,9 @@ pipeline {
         }
 
         stage('Push Image to Ducker Hub') {
+            when {
+              branch 'development'
+            }
             steps{    
               script {
                 docker.withRegistry( '', registryCredential ) {
@@ -42,12 +44,23 @@ pipeline {
         }
 
         stage('Remove Unused docker image') {
+           when {
+              branch 'development'
+            }
             steps{
               sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
 
-        stage('Ansible test') {
+        stage('Deploy to Staging environment') {
+          when {
+              branch 'development'
+            }
+            steps{
+              sh "ansible -m ping all"
+            }
+        }
+         stage('Deploy to Production environment') {
           when {
               branch 'main'
             }
@@ -55,7 +68,6 @@ pipeline {
               sh "ansible -m ping all"
             }
         }
-        
     }
     // post {
     //     always {
