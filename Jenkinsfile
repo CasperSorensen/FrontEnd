@@ -61,7 +61,7 @@ pipeline {
             }
         }
 
-        stage('Remove Unused docker image') {
+        stage('Remove Unused testing docker image') {
            when {
               branch 'development'
             }
@@ -70,7 +70,7 @@ pipeline {
             }
         }
 
-        stage('Remove Unused docker image') {
+        stage('Remove Unused production docker image') {
            when {
               branch 'staging'
             }
