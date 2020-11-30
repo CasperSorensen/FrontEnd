@@ -3,7 +3,6 @@ pipeline {
         testingregistry = "knoxie2/front_end_app_testing"
         productionregistry = "knoxie2/front_end_app"
         registryCredential = 'knoxie2'
-        version = "latest"
         dockerImage = ''
         HOME = '/tmp'
     } 
@@ -37,7 +36,7 @@ pipeline {
             }
             steps {
               script {
-                docker.image("knoxie2/front_end_app_testing").inside("""--entrypoint=''""") {
+                docker.image("knoxie2/front_end_app_testing:latest").inside("""--entrypoint=''""") {
                   sh 'dotnet --version'
                   sh 'cd src/FrontEndApp.Unittests'
                   sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
