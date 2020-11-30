@@ -3,7 +3,6 @@ pipeline {
         testingregistry = "knoxie2/front_end_app_testing"
         productionregistry = "knoxie2/front_end_app"
         registryCredential = 'knoxie2'
-        version = "latest"
         dockerImage = ''
         HOME = '/tmp'
     } 
@@ -15,11 +14,10 @@ pipeline {
             }
             steps {
               script {
-                dockerImage = docker.build testingregistry + ":$BUILD_NUMBER"
+                dockerImage = docker.build testingregistry + ":latest"
               }
             }
         }
-<<<<<<< HEAD
         
         stage('Building image for Production') {
           when {
@@ -32,16 +30,13 @@ pipeline {
             }
         }
         
-=======
-
->>>>>>> development
         stage('Running Unit Tests') {
           when {
               branch 'development'
             }
             steps {
               script {
-                docker.image('knoxie2/front_end_app_testing' + ":latest").inside("""--entrypoint=''""") {
+                docker.image("knoxie2/front_end_app_testing:latest").inside("""--entrypoint=''""") {
                   sh 'dotnet --version'
                   sh 'cd src/FrontEndApp.Unittests'
                   sh 'dotnet test --logger "trx;LogFileName=unit_tests.xml"'
@@ -51,15 +46,10 @@ pipeline {
         }
 
         stage('Push Image to Ducker Hub') {
-<<<<<<< HEAD
            when {
               not {
                 branch 'main'
               }
-=======
-            when {
-              branch 'development'
->>>>>>> development
             }
             steps{    
               script {
@@ -70,47 +60,33 @@ pipeline {
             }
         }
 
-<<<<<<< HEAD
-        stage('Remove Unused testing docker image') {
+        stage('Remove Unused Testing docker image') {
            when {
               branch 'development'
             }
             steps{
-              sh "docker rmi $testingregistry:$version" 
+              sh "docker rmi $testingregistry:latest" 
             }
         }
 
-        stage('Remove Unused production docker image') {
+        stage('Remove Unused Production docker image') {
            when {
               branch 'staging'
             }
-=======
-        stage('Remove Unused docker image') {
-           when {
-              branch 'development'
-            }
->>>>>>> development
             steps{
-              sh "docker rmi $productionregistry:$version"
+              sh "docker rmi $productionregistry:latest"
             }
         }
 
         stage('Deploy to Staging environment') {
           when {
-<<<<<<< HEAD
               branch 'staging'
-=======
-              branch 'development'
->>>>>>> development
             }
             steps{
-              sh "ansible -m ping all"
+              //sh "ansible-playbook ansible-playbooks/pull_webshop_front_end_testing.yml"
+              ansiblePlaybook(playbook: 'ansible-playbooks/pull_webshop_front_end_testing.yml',inventory: 'etc/ansible/hosts')
             }
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> development
          stage('Deploy to Production environment') {
           when {
               branch 'main'
@@ -120,9 +96,4 @@ pipeline {
             }
         }
     }
-    // post {
-    //     always {
-    //         step([$class: 'MSTestPublisher', testResultsFile:"**/unit_tests.xml", failOnError: true, keepLongStdio: true])
-    //     }
-    // }
 }
