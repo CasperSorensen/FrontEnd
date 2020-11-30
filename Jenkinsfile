@@ -7,7 +7,9 @@ pipeline {
     } 
     agent any
     stages {
-        
+        when {
+            branch 'development'
+        }
         stage('Building image') {
             steps {
               script {
@@ -28,7 +30,7 @@ pipeline {
             }
         }
 
-        stage('Deploy Image') {
+        stage('Push Image to Ducker Hub') {
             steps{    
               script {
                 docker.withRegistry( '', registryCredential ) {
@@ -44,7 +46,7 @@ pipeline {
             }
         }
 
-         stage('Ansible test') {
+        stage('Ansible test') {
             steps{
               sh "ansible -m ping all"
             }
