@@ -65,7 +65,7 @@ pipeline {
               branch 'development'
             }
             steps{
-              sh "docker rmi $testingregistry:$version" 
+              sh "docker rmi knoxie2/front_end_app_testing:latest" 
             }
         }
 
@@ -74,7 +74,7 @@ pipeline {
               branch 'staging'
             }
             steps{
-              sh "docker rmi $productionregistry:$version"
+              sh "docker rmi knoxie2/front_end_app:latest"
             }
         }
 
