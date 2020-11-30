@@ -8,7 +8,8 @@ namespace FrontEndApp.Unittests
     [Fact]
     public void Test1()
     {
-      //test
+      //test of feature branch
+      // test of automated login 
     }
   }
 }
