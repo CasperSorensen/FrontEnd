@@ -2,7 +2,8 @@ pipeline {
     environment {
         registry = "knoxie2/front_end_app"
         registryCredential = 'knoxie2'
-        dockerImage = '' 
+        dockerImage = ''
+        HOME = '/tmp'
     } 
     agent any
     stages {
