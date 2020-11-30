@@ -83,7 +83,6 @@ pipeline {
               branch 'staging'
             }
             steps{
-              sh "cd ansible-playbooks"
               sh "ansible-playbook pull_webshop_front_end_testing.yml"
             }
         }
