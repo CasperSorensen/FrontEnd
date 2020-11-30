@@ -15,7 +15,7 @@ pipeline {
             }
             steps {
               script {
-                dockerImage = docker.build testingregistry + ":$BUILD_NUMBER"
+                dockerImage = docker.build testingregistry + ":latest"
               }
             }
         }
