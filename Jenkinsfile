@@ -85,7 +85,6 @@ pipeline {
             steps{
               //sh "ansible-playbook ansible-playbooks/pull_webshop_front_end_testing.yml"
               ansiblePlaybook(playbook: 'pull_webshop_front_end_testing.yml',inventory: 'hosts')
-
             }
         }
          stage('Deploy to Production environment') {
