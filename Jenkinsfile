@@ -65,7 +65,7 @@ pipeline {
               branch 'development'
             }
             steps{
-              sh "docker rmi $testingregistry:$version" 
+              sh "docker rmi $testingregistry:latest" 
             }
         }
 
