@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
 set -x
-ansible -m ping production
+ansible-playbook pull_webshop_front_end_testing.yml -i /etc/ansible/hosts --private-key /var/lib/jenkins/.ssh -u root
 set +x
