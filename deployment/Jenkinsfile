@@ -84,8 +84,8 @@ pipeline {
               branch 'staging'
             }
             steps{
-              sh './deployment/scripts/testing-deployment.sh'
-              // ansiblePlaybook(credentialsId:'Ansible', playbook:'pull_webshop_front_end_testing.yml',inventory:"${HOSTS}")
+              // sh './deployment/scripts/testing-deployment.sh'
+              ansiblePlaybook(credentialsId:'Ansible', playbook:'pull_webshop_front_end_testing.yml',inventory:"${HOSTS}", becomeUser:'root')
             }
         }
          stage('Deploy to Production environment') {
