@@ -1,0 +1,12 @@
+- hosts:
+    - swarmmanager
+  tasks:
+    # - name: Cloning production deployment code
+    #   shell: git pull
+    #   args:
+    #     chdir: Deployments/
+
+    - name: Deploying to Production
+      shell: docker stack deploy --compose-file webshop_deployments/front_end/docker-compose-stack.production.yml production_stack
+      args:
+        chdir: Deployments/

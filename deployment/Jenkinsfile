@@ -20,17 +20,6 @@ pipeline {
             }
         }
         
-        stage('Building image for Production') {
-          when {
-              branch 'staging'
-            }
-            steps {
-              script {
-                dockerImage = docker.build productionregistry + ":latest"
-              }
-            }
-        }
-        
         stage('Running Unit Tests') {
           when {
               branch 'development'
@@ -45,7 +34,18 @@ pipeline {
               }
             }
         }
-
+        
+        stage('Building image for Production') {
+          when {
+              branch 'staging'
+            }
+            steps {
+              script {
+                dockerImage = docker.build (productionregistry + ":latest", "./deployment") 
+              }
+            }
+        }
+        
         stage('Push Image to Ducker Hub') {
            when {
               not {
