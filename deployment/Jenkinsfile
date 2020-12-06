@@ -86,6 +86,7 @@ pipeline {
             steps{
               // sh './deployment/scripts/testing-deployment.sh'
               ansiblePlaybook(credentialsId: 'root', playbook: './playbooks/deploy-for-production.yml',inventory: "${HOSTS}")
+
             }
         }
          stage('Deploy to Production environment') {
