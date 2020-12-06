@@ -20,17 +20,6 @@ pipeline {
             }
         }
         
-        stage('Building image for Production') {
-          when {
-              branch 'staging'
-            }
-            steps {
-              script {
-                dockerImage = docker.build productionregistry + ":latest"
-              }
-            }
-        }
-        
         stage('Running Unit Tests') {
           when {
               branch 'development'
@@ -45,7 +34,18 @@ pipeline {
               }
             }
         }
-
+        
+        stage('Building image for Production') {
+          when {
+              branch 'staging'
+            }
+            steps {
+              script {
+                dockerImage = docker.build (productionregistry + ":latest", "./deployment") 
+              }
+            }
+        }
+        
         stage('Push Image to Ducker Hub') {
            when {
               not {
@@ -84,8 +84,8 @@ pipeline {
               branch 'staging'
             }
             steps{
-              sh './deployment/scripts/testing-deployment.sh'
-              // ansiblePlaybook(credentialsId: 'root', playbook: 'pull_webshop_front_end_testing.yml',inventory: "${HOSTS}")
+              // sh './deployment/scripts/testing-deployment.sh'
+              ansiblePlaybook(credentialsId: 'root', playbook: './playbooks/deploy-for-production.yml',inventory: "${HOSTS}")
             }
         }
          stage('Deploy to Production environment') {
