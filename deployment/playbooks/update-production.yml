@@ -4,4 +4,4 @@
     chdir: Deployments/
 
 - name: Deploying to Production
-  shell: docker stack deploy --compose-file /front_end/docker-compose.yml prod_stack
+  shell: docker stack deploy --compose-file /front_end/docker-compose.yml production_stack

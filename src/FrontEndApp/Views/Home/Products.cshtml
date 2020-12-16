@@ -1,0 +1,38 @@
+@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Products";
+}
+<div class="container">
+    <h1 class="title">@ViewData["Title"]</h1>
+    
+    <div class="container">
+
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th>Product Id:</th>
+                    <th>Product Name:</th>
+                    <th>Product Description:</th>
+                    <th>Product Price:</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    var i = 1;
+                    foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@product.Id</td>
+                            <td>@product.product_name</td>
+                            <td>@product.product_description</td>
+                            <td>@product.product_price</td>
+                        </tr>
+                        i++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

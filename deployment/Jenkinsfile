@@ -51,6 +51,9 @@ pipeline {
               not {
                 branch 'main'
               }
+               not {
+                branch 'development'
+              }
             }
             steps{    
               script {
