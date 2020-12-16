@@ -1,7 +1,12 @@
-- name: Cloning Deployment Source Code
-  shell: git pull https://github.com/CasperSorensen/webshop_deployments
-  args:
-    chdir: Deployments/
+- hosts:
+    - staging
+  tasks:
+    - name: Cloning Staging deployment code
+      shell: git pull
+      args:
+        chdir: Deployments/webshop_deployments
 
-- name: Deploying to Staging
-  shell: docker stack deploy --compose-file /front_end/docker-compose.staging.yml staging_stack
+    - name: Deploying to Staging
+      shell: docker stack deploy --compose-file docker-compose.staging.stack.yml staging_stack
+      args:
+        chdir: Deployments/webshop_deployments/front_end
