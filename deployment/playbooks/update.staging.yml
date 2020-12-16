@@ -1,0 +1,7 @@
+- name: Cloning production deployment code
+  shell: git pull https://github.com/CasperSorensen/webshop_deployments
+  args:
+    chdir: Deployments/
+
+- name: Deploying to Production
+  shell: docker stack deploy --compose-file /front_end/docker-compose.yml staging_stack

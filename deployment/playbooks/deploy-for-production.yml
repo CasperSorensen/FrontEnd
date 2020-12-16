@@ -1,0 +1,12 @@
+- hosts:
+    - prod
+  tasks:
+    - name: Cloning production deployment code
+      shell: git pull
+      args:
+        chdir: Deployments/webshop_deployments
+
+    - name: Deploying to Production
+      shell: docker stack deploy --compose-file docker-compose.production.stack.yml production_stack
+      args:
+        chdir: Deployments/webshop_deployments/front_end

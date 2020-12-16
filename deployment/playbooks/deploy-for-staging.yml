@@ -1,0 +1,12 @@
+- hosts:
+    - staging
+  tasks:
+    - name: Cloning Staging deployment code
+      shell: git pull
+      args:
+        chdir: Deployments/webshop_deployments
+
+    - name: Deploying to Staging
+      shell: docker stack deploy --compose-file docker-compose.staging.stack.yml staging_stack
+      args:
+        chdir: Deployments/webshop_deployments/front_end
