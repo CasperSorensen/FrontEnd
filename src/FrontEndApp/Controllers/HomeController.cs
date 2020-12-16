@@ -38,6 +38,10 @@ namespace FrontEndApp.Controllers
     {
       OrdersRespository or = new OrdersRespository();
       var orders = await or.GetAllOrders();
+      if (orders == null)
+      {
+        orders = new List<Order>() { new Order { customer_name = "no data" } };
+      }
       return View(orders);
     }
 
@@ -45,6 +49,10 @@ namespace FrontEndApp.Controllers
     {
       ProductsRespository pr = new ProductsRespository();
       var products = await pr.GetAllProducts();
+      if (products == null)
+      {
+        products = new List<Product>() { new Product { product_name = "no data" } };
+      }
       return View(products);
     }
 

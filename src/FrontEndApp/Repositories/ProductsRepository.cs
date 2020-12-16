@@ -19,7 +19,8 @@ namespace FrontEndApp.Repositories
       List<Product> ProductList = new List<Product>();
       using (var httpClient = new HttpClient(clientHandler))
       {
-        using (var response = await httpClient.GetAsync("https://localhost:5001/Products"))
+        // http://localhost:5005/Product
+        using (var response = await httpClient.GetAsync("http://csbachelorproject_products_service_1"))
         {
           string apiResponse = await response.Content.ReadAsStringAsync();
           ProductList = JsonConvert.DeserializeObject<List<Product>>(apiResponse);

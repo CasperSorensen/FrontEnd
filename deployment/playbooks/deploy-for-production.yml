@@ -1,5 +1,5 @@
 - hosts:
-    - prod
+    - awsswarmmanager
   tasks:
     - name: Cloning production deployment code
       shell: git pull
