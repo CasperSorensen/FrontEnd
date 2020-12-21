@@ -88,7 +88,7 @@ pipeline {
             }
             steps{
               // sh './deployment/scripts/testing-deployment.sh'
-              ansiblePlaybook(credentialsId: 'root', playbook: './playbooks/deploy-for-production.yml',inventory: "${HOSTS}")
+              ansiblePlaybook(credentialsId: 'root', playbook: './playbooks/deploy-for-staging.yml',inventory: "${HOSTS}")
             }
         }
          stage('Deploy to Production environment') {
@@ -96,7 +96,8 @@ pipeline {
               branch 'main'
             }
             steps{
-              sh "ansible -m ping all"
+              ansiblePlaybook(credentialsId: 'root', playbook: './playbooks/deploy-for-production.yml',inventory: "${HOSTS}")
+
             }
         }
     }
