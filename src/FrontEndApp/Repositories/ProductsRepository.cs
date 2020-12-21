@@ -11,6 +11,7 @@ namespace FrontEndApp.Repositories
 {
   public class ProductsRespository : IProductsRepository
   {
+
     public async Task<IEnumerable<Product>> GetAllProducts()
     {
       HttpClientHandler clientHandler = new HttpClientHandler();
@@ -19,7 +20,8 @@ namespace FrontEndApp.Repositories
       List<Product> ProductList = new List<Product>();
       using (var httpClient = new HttpClient(clientHandler))
       {
-        using (var response = await httpClient.GetAsync("https://localhost:5001/Products"))
+        // http://localhost:5005/Product
+        using (var response = await httpClient.GetAsync("http://products_service"))
         {
           string apiResponse = await response.Content.ReadAsStringAsync();
           ProductList = JsonConvert.DeserializeObject<List<Product>>(apiResponse);
