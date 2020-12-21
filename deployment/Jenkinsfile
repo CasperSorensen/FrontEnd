@@ -87,7 +87,6 @@ pipeline {
               branch 'staging'
             }
             steps{
-              // sh './deployment/scripts/testing-deployment.sh'
               ansiblePlaybook(credentialsId: 'root', playbook: './playbooks/deploy-for-staging.yml',inventory: "${HOSTS}")
             }
         }
@@ -97,7 +96,6 @@ pipeline {
             }
             steps{
               ansiblePlaybook(credentialsId: 'root', playbook: './playbooks/deploy-for-production.yml',inventory: "${HOSTS}")
-
             }
         }
     }
