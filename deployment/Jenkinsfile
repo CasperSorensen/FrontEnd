@@ -9,7 +9,7 @@ pipeline {
     } 
     agent any
     stages {
-        stage('Building image for Testting') {
+        stage('Development: Building Development image for Unit Tests') {
           when {
               branch 'development'
             }
@@ -20,7 +20,7 @@ pipeline {
             }
         }
         
-        stage('Running Unit Tests') {
+        stage('Development: Running Unit Tests') {
           when {
               branch 'development'
             }
@@ -35,7 +35,7 @@ pipeline {
             }
         }
         
-        stage('Building image for Production') {
+        stage('Staging: Building image for Staging') {
           when {
               branch 'staging'
             }
@@ -46,7 +46,7 @@ pipeline {
             }
         }
         
-        stage('Push Image to Ducker Hub') {
+        stage('Push image to Ducker Hub') {
            when {
               not {
                 branch 'main'
@@ -64,7 +64,7 @@ pipeline {
             }
         }
 
-        stage('Remove Unused Testing docker image') {
+        stage('Development: Remove Unused Development docker image') {
            when {
               branch 'development'
             }
@@ -98,10 +98,15 @@ pipeline {
               ansiblePlaybook(credentialsId: 'root', playbook: '../playbooks/deploy-for-production.yml',inventory: "${HOSTS}")
             }
         }
-    }
-     post { 
-        always { 
-            cleanWs()
+        stage('CleanWorkspace') {
+            steps {
+                cleanWs()
+            }
         }
     }
+    //  post { 
+    //     always { 
+    //         cleanWs()
+    //     }
+    // }
 }
