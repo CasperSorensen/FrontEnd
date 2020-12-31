@@ -87,7 +87,7 @@ pipeline {
               branch 'staging'
             }
             steps{
-              ansiblePlaybook(credentialsId: 'root', playbook: '../playbooks/deploy-for-staging.yml',inventory: "${HOSTS}")
+              ansiblePlaybook(credentialsId: 'swarm-manager', playbook: './deployment/playbooks/deploy-for-staging.yml',inventory: "${HOSTS}")
             }
         }
          stage('Deploy to Production environment') {
@@ -95,7 +95,7 @@ pipeline {
               branch 'main'
             }
             steps{
-              ansiblePlaybook(credentialsId: 'root', playbook: '../playbooks/deploy-for-production.yml',inventory: "${HOSTS}")
+              ansiblePlaybook(credentialsId: 'swarm-manager', playbook: './deployment/playbooks/deploy-for-production.yml',inventory: "${HOSTS}")
             }
         }
         stage('CleanWorkspace') {
