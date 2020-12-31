@@ -81,9 +81,17 @@ pipeline {
             }
         }
 
-        stage('Remove Unused Production docker image') {
+        stage('Staging: Remove Unused Production docker image') {
            when {
               branch 'staging'
+            }
+            steps{
+              sh "docker rmi $testingregistry:latest"
+            }
+        }
+        stage('Main: Remove Unused Production docker image') {
+           when {
+              branch 'main'
             }
             steps{
               sh "docker rmi $productionregistry:latest"
@@ -98,7 +106,8 @@ pipeline {
               ansiblePlaybook(credentialsId: 'swarm-manager', playbook: './deployment/playbooks/deploy-for-staging.yml',inventory: "${HOSTS}")
             }
         }
-         stage('Deploy to Production environment') {
+        
+        stage('Deploy to Production environment') {
           when {
               branch 'main'
             }
@@ -106,6 +115,7 @@ pipeline {
               ansiblePlaybook(credentialsId: 'swarm-manager', playbook: './deployment/playbooks/deploy-for-production.yml',inventory: "${HOSTS}")
             }
         }
+        
         stage('CleanWorkspace') {
             steps {
                 cleanWs()
