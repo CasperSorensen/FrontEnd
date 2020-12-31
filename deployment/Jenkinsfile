@@ -81,10 +81,18 @@ pipeline {
             }
         }
 
-        stage('Remove Unused Production docker image') {
+        stage('Staging: Remove Unused Production docker image') {
            when {
               branch 'staging'
             }
+            steps{
+              sh "docker rmi $testingregistry:latest"
+            }
+        }
+        stage('Staging: Remove Unused Production docker image') {
+           when {
+              branch 'main'
+           }
             steps{
               sh "docker rmi $productionregistry:latest"
             }
