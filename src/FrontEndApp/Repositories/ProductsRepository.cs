@@ -21,7 +21,7 @@ namespace FrontEndApp.Repositories
       using (var httpClient = new HttpClient(clientHandler))
       {
         // http://localhost:5005/Product
-        using (var response = await httpClient.GetAsync("http://production_stack_products_service/products"))
+        using (var response = await httpClient.GetAsync("http://localhost:5005/products"))
         {
           string apiResponse = await response.Content.ReadAsStringAsync();
           ProductList = JsonConvert.DeserializeObject<List<Product>>(apiResponse);
