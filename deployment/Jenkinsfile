@@ -7,7 +7,7 @@ pipeline {
         HOME = '/tmp'
 
     }
-     
+
     agent any
 
     stages {
@@ -98,7 +98,7 @@ pipeline {
               branch 'staging'
             }
             steps{
-              ansiblePlaybook(credentialsId: 'root', playbook: '../playbooks/deploy-for-staging.yml',inventory: "${HOSTS}")
+              ansiblePlaybook(credentialsId: 'root', playbook: '../playbooks/update.staging.yml',inventory: "${HOSTS}")
             }
         }
 
