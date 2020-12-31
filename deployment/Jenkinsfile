@@ -41,16 +41,24 @@ pipeline {
             }
             steps {
               script {
-                 dockerImage = docker.build productionregistry + ":latest" 
+                 dockerImage = docker.build testingregistry + ":latest" 
               }
             }
         }
         
+        stage('Main: Building image for Production') {
+          when {
+              branch 'main'
+            }
+            steps {
+              script {
+                 dockerImage = docker.build productionregistry + ":latest" 
+              }
+            }
+        }
+
         stage('Push image to Ducker Hub') {
            when {
-              not {
-                branch 'main'
-              }
                not {
                 branch 'development'
               }
