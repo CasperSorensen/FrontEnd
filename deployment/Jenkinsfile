@@ -41,7 +41,7 @@ pipeline {
             }
             steps {
               script {
-                dockerImage = docker.build (productionregistry + ":latest", "./deployment") 
+                 dockerImage = docker.build productionregistry + ":latest" 
               }
             }
         }
