@@ -2,4 +2,4 @@
     - awsswarmmanager
   tasks:
     - name: Update the front_end_testing service
-      shell: docker service update --force staging_stack_front_end
+      shell: docker service update --force --image knoxie2/front_end_app_testing:latest staging_stack_front_end
