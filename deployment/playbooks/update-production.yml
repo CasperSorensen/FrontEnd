@@ -1,5 +1,0 @@
-- hosts:
-    - awsswarmmanager
-  tasks:
-    - name: Update the front_end service
-      shell: docker service update --force --image knoxie2/front_end_app:latest production_stack_front_end

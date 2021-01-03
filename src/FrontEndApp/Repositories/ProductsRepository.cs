@@ -21,13 +21,14 @@ namespace FrontEndApp.Repositories
 
     public async Task<IEnumerable<Product>> GetAllProducts()
     {
+      Console.WriteLine(this._apiConfig.Orders_Base_Url);
       HttpClientHandler clientHandler = new HttpClientHandler();
       clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
 
       List<Product> ProductList = new List<Product>();
       using (var httpClient = new HttpClient(clientHandler))
       {
-        using (var response = await httpClient.GetAsync(this._apiConfig.Products_Base_Url + "products"))
+        using (var response = await httpClient.GetAsync(this._apiConfig.Products_Base_Url))
         {
           string apiResponse = await response.Content.ReadAsStringAsync();
           ProductList = JsonConvert.DeserializeObject<List<Product>>(apiResponse);
