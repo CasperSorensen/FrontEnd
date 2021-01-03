@@ -79,7 +79,7 @@ pipeline {
               branch 'development'
             }
             steps{
-              sh "docker rmi $testingregistry:${env.BUILD_ID}" 
+              sh "docker rmi $testingregistry:latest" 
             }
         }
 
@@ -88,7 +88,7 @@ pipeline {
               branch 'staging'
             }
             steps{
-              sh "docker rmi $testingregistry:${env.BUILD_ID}"
+              sh "docker rmi $testingregistry:latest"
             }
         }
       
