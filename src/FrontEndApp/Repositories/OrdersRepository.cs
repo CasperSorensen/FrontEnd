@@ -27,7 +27,7 @@ namespace FrontEndApp.Repositories
       List<Order> orderList = new List<Order>();
       using (var httpClient = new HttpClient(clientHandler))
       {
-        using (var response = await httpClient.GetAsync("http://13.49.100.19:5008/orders"))
+        using (var response = await httpClient.GetAsync(this._apiConfig.Orders_Base_Url))
         {
           string apiResponse = await response.Content.ReadAsStringAsync();
           orderList = JsonConvert.DeserializeObject<List<Order>>(apiResponse);
