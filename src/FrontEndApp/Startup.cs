@@ -25,10 +25,10 @@ namespace FrontEndApp
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddControllersWithViews();
 
-      var api_config = new ApiConfigs();
-      Configuration.Bind(api_config);
+      var products_api = Environment.GetEnvironmentVariable("PRODUCTS_API_URL");
+      var orders_api = Environment.GetEnvironmentVariable("ORDERS_API_URL");
+      var api_config = new ApiConfigs(products_api, orders_api);
 
       var OrdersRepo = new OrdersRepository(api_config);
       Console.WriteLine(api_config.Orders_Base_Url);
@@ -37,6 +37,8 @@ namespace FrontEndApp
       var ProductsRepo = new ProductsRepository(api_config);
       Console.WriteLine(api_config.Products_Base_Url);
       services.AddSingleton<IProductsRepository>(ProductsRepo);
+
+      services.AddControllersWithViews();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
