@@ -6,33 +6,23 @@
     <h1 class="title">@ViewData["Title"]</h1>
     
     <div class="container">
-
-        <table class="table">
-
-            <thead>
-                <tr>
-                    <th>Product Id:</th>
-                    <th>Product Name:</th>
-                    <th>Product Description:</th>
-                    <th>Product Price:</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @{
-                    var i = 1;
-                    foreach (var product in Model)
-                    {
-                        <tr>
-                            <td>@product.Id</td>
-                            <td>@product.product_name</td>
-                            <td>@product.product_description</td>
-                            <td>@product.product_price</td>
-                        </tr>
-                        i++;
-                    }
+        @{
+            <div class="list-group">
+            </div>
+                var i = 1;
+                foreach (var product in Model)
+                {
+                    <div class="list-group-item list-group-item-action flex-column align-items-start active">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">@product.product_name</h5>
+                        <small>Id: @product.Id</small>
+                    </div>
+                    <p class="mb-1">@product.product_description</p>
+                    <small>Price: @product.product_price ,-</small>
+                    </div>
+                    
+                    i++;
                 }
-            </tbody>
-        </table>
+            }
     </div>
 </div>
