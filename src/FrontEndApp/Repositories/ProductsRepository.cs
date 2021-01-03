@@ -21,6 +21,7 @@ namespace FrontEndApp.Repositories
 
     public async Task<IEnumerable<Product>> GetAllProducts()
     {
+      Console.WriteLine(this._apiConfig.Orders_Base_Url);
       HttpClientHandler clientHandler = new HttpClientHandler();
       clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
 
