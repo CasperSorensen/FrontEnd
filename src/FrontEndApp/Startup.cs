@@ -31,9 +31,11 @@ namespace FrontEndApp
       Configuration.Bind(api_config);
 
       var OrdersRepo = new OrdersRepository(api_config);
+      Console.WriteLine(api_config.Orders_Base_Url);
       services.AddSingleton<IOrdersRepository>(OrdersRepo);
 
       var ProductsRepo = new ProductsRepository(api_config);
+      Console.WriteLine(api_config.Products_Base_Url);
       services.AddSingleton<IProductsRepository>(ProductsRepo);
     }
 
