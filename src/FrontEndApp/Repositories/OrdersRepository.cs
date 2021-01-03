@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using FrontEndApp.Models;
 using Newtonsoft.Json;
+using FrontEndApp.Configs;
 
 namespace FrontEndApp.Repositories
 {
-  public class OrdersRespository : IOrdersRepository
+  public class OrdersRepository : IOrdersRepository
   {
+    public ApiConfigs _apiConfig { get; set; }
+
+    public OrdersRepository(ApiConfigs apiconfig)
+    {
+      this._apiConfig = apiconfig;
+    }
+
     public async Task<IEnumerable<Order>> GetAllOrders()
     {
       HttpClientHandler clientHandler = new HttpClientHandler();
@@ -19,7 +27,7 @@ namespace FrontEndApp.Repositories
       List<Order> orderList = new List<Order>();
       using (var httpClient = new HttpClient(clientHandler))
       {
-        using (var response = await httpClient.GetAsync("http://production_stack_orders_service/orders"))
+        using (var response = await httpClient.GetAsync(this._apiConfig.Orders_Base_Url + "orders"))
         {
           string apiResponse = await response.Content.ReadAsStringAsync();
           orderList = JsonConvert.DeserializeObject<List<Order>>(apiResponse);
@@ -27,5 +35,6 @@ namespace FrontEndApp.Repositories
       }
       return orderList;
     }
+
   }
 }

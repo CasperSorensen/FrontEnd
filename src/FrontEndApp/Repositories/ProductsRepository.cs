@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using FrontEndApp.Models;
 using Newtonsoft.Json;
+using FrontEndApp.Configs;
 
 namespace FrontEndApp.Repositories
 {
-  public class ProductsRespository : IProductsRepository
+  public class ProductsRepository : IProductsRepository
   {
+    public ApiConfigs _apiConfig { get; set; }
+
+    public ProductsRepository(ApiConfigs apiConfig)
+    {
+      this._apiConfig = apiConfig;
+    }
 
     public async Task<IEnumerable<Product>> GetAllProducts()
     {
@@ -20,8 +27,7 @@ namespace FrontEndApp.Repositories
       List<Product> ProductList = new List<Product>();
       using (var httpClient = new HttpClient(clientHandler))
       {
-        // http://localhost:5005/Product
-        using (var response = await httpClient.GetAsync("http://localhost:5005/products"))
+        using (var response = await httpClient.GetAsync(this._apiConfig.Products_Base_Url + "products"))
         {
           string apiResponse = await response.Content.ReadAsStringAsync();
           ProductList = JsonConvert.DeserializeObject<List<Product>>(apiResponse);
