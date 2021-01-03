@@ -97,7 +97,7 @@ pipeline {
               branch 'main'
             }
             steps{
-              sh "docker rmi $productionregistry:${env.BUILD_ID}"
+              sh "docker rmi $productionregistry:latest"
             }
         }
 

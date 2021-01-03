@@ -10,7 +10,7 @@
       shell: cd
 
     - name: Copy composefile to Home directory
-      shell: cp Deployments/webshop_deployments/front_end/docker-compose.staging.stack.yml docker-compose.staging.stack.yml
+      shell: cp Deployments/webshop_deployments/docker-compose.staging.stack.yml docker-compose.staging.stack.yml
 
     - name: Deploying to staging
       shell: docker stack deploy --compose-file docker-compose.staging.stack.yml staging_stack
