@@ -7,16 +7,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FrontEndApp.Models;
 using FrontEndApp.Repositories;
+using FrontEndApp.Configs;
 
 namespace FrontEndApp.Controllers
 {
   public class HomeController : Controller
   {
     private readonly ILogger<HomeController> _logger;
+    private readonly IOrdersRepository _ordersrepo;
+    private readonly IProductsRepository _productssrepo;
 
-    public HomeController(ILogger<HomeController> logger)
+
+    public HomeController(ILogger<HomeController> logger, IOrdersRepository ordersRepository, IProductsRepository productsRepository)
     {
-      _logger = logger;
+      this._logger = logger;
+      this._ordersrepo = ordersRepository;
+      this._productssrepo = productsRepository;
     }
 
     public IActionResult Index()
@@ -36,8 +42,7 @@ namespace FrontEndApp.Controllers
 
     public async Task<IActionResult> Orders()
     {
-      OrdersRespository or = new OrdersRespository();
-      var orders = await or.GetAllOrders();
+      var orders = await this._ordersrepo.GetAllOrders();
       if (orders == null)
       {
         orders = new List<Order>() { new Order { customer_name = "no data" } };
@@ -47,8 +52,7 @@ namespace FrontEndApp.Controllers
 
     public async Task<IActionResult> Products()
     {
-      ProductsRespository pr = new ProductsRespository();
-      var products = await pr.GetAllProducts();
+      var products = await this._productssrepo.GetAllProducts();
       if (products == null)
       {
         products = new List<Product>() { new Product { product_name = "no data" } };
