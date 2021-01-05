@@ -10,7 +10,7 @@
       shell: cd
 
     - name: Copy composefile to Home directory
-      shell: cp Deployments/webshop_deployments/front_end/docker-compose.production.stack.yml docker-compose.production.stack.yml
+      shell: cp Deployments/webshop_deployments/docker-compose.production.stack.yml docker-compose.production.stack.yml
 
     - name: Deploying to Production
       shell: docker stack deploy --compose-file docker-compose.production.stack.yml production_stack

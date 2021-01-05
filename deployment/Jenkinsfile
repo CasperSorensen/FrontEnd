@@ -43,7 +43,7 @@ pipeline {
             }
             steps {
               script {
-                 dockerImage = docker.build(testingregistry + ":${env.BUILD_ID}") 
+                 dockerImage = docker.build(testingregistry + ":latest") 
               }
             }
         }
@@ -54,7 +54,7 @@ pipeline {
             }
             steps {
               script {
-                 dockerImage = docker.build(testingregistry + ":${env.BUILD_ID}") 
+                 dockerImage = docker.build(testingregistry + ":latest") 
               }
             }
         }
@@ -68,7 +68,6 @@ pipeline {
             steps{    
               script {
                 docker.withRegistry( '', registryCredential ) {
-                  dockerImage.push("${env.BUILD_ID}")
                   dockerImage.push("latest")
                 }
               }
@@ -80,7 +79,7 @@ pipeline {
               branch 'development'
             }
             steps{
-              sh "docker rmi $testingregistry:${env.BUILD_ID}" 
+              sh "docker rmi $testingregistry:latest" 
             }
         }
 
@@ -89,7 +88,7 @@ pipeline {
               branch 'staging'
             }
             steps{
-              sh "docker rmi $testingregistry:${env.BUILD_ID}"
+              sh "docker rmi $testingregistry:latest"
             }
         }
       
@@ -98,7 +97,7 @@ pipeline {
               branch 'main'
             }
             steps{
-              sh "docker rmi $productionregistry:${env.BUILD_ID}"
+              sh "docker rmi $productionregistry:latest"
             }
         }
 
