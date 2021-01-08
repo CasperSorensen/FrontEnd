@@ -36,5 +36,13 @@ namespace FrontEndApp.Repositories
       }
       return ProductList;
     }
+
+    public List<Product> GetDummyProductList()
+    {
+      var dummylist = new List<Product>();
+      var dummyProduct = new Product();
+      dummylist.Add(dummyProduct.CreateDummyProduct());
+      return dummylist;
+    }
   }
 }

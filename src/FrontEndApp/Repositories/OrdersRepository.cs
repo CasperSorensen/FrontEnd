@@ -36,5 +36,13 @@ namespace FrontEndApp.Repositories
       return orderList;
     }
 
+    public List<Order> GetDummyOrderList()
+    {
+      var dummylist = new List<Order>();
+      var dummyOrder = new Order();
+      dummylist.Add(dummyOrder.CreateDummyOrder());
+      return dummylist;
+    }
+
   }
 }
